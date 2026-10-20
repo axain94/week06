@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑死病：歷史的霧霾與現代警鐘</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg: #0a0a0c;
+            --color-text: #d4d4ce;
+            --color-accent: #5e6b52; /* 帶有神祕與病態感的灰綠色 */
+            --color-highlight: #8a3a3a; /* 暗紅色 */
+        }
+
+        body {
+            font-family: 'Noto Serif TC', serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* 霧霾背景動畫效果 */
+        .fog-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .fog-layer {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, var(--color-bg) 80%),
+                        url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.15"/></svg>');
+            opacity: 0.4;
+            animation: drift 60s linear infinite;
+            mix-blend-mode: screen;
+        }
+
+        .fog-layer:nth-child(2) {
+            animation-direction: reverse;
+            animation-duration: 90s;
+            opacity: 0.2;
+            transform: scale(1.2);
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* 內容區塊層級調整，確保在霧霾之上 */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 漸層文字特效 */
+        .text-gradient {
+            background: linear-gradient(45deg, var(--color-text), var(--color-accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* 互動卡片基礎樣式 */
+        .artifact-card {
+            background: rgba(20, 20, 22, 0.8);
+            border: 1px solid rgba(94, 107, 82, 0.3);
+            backdrop-filter: blur(5px);
+            transition: border-color 0.3s ease;
+        }
+        
+        .artifact-card:hover {
+            border-color: var(--color-highlight);
+        }
+
+        .artifact-details {
+            overflow: hidden;
+            height: 0;
+            opacity: 0;
+        }
+        
+        /* 隱藏捲軸但保留功能 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fog-container">
+        <div class="fog-layer"></div>
+        <div class="fog-layer"></div>
+    </div>
+
+    <div class="content-wrapper">
+        <header class="min-h-screen flex flex-col justify-center items-center text-center px-4 relative">
+            <div class="hero-elements opacity-0 translate-y-10">
+                <p class="text-sm md:text-base tracking-[0.5em] text-[#5e6b52] mb-4">THE BLACK DEATH</p>
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 text-gradient tracking-widest drop-shadow-lg">
+                    歷史的霧霾
+                </h1>
+                <h2 class="text-2xl md:text-3xl text-gray-400 mb-8 font-light tracking-widest">
+                    與現代的警鐘
+                </h2>
+                <p class="max-w-2xl mx-auto text-gray-400 text-sm md:text-base leading-relaxed">
+                    從中世紀的街道到現代的實驗室，鼠疫的陰影從未真正消散。<br>
+                    當古老的疫病在現代社會再次泛起漣漪，我們能否從歷史中找到解答？
+                </p>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 scroll-indicator opacity-0">
+                <p class="text-xs tracking-widest mb-2 text-gray-500">往下探索</p>
+                <div class="w-[1px] h-12 bg-gradient-to-b from-gray-500 to-transparent mx-auto"></div>
+            </div>
+        </header>
+
+        <section class="py-24 px-6 max-w-5xl mx-auto reveal-section opacity-0">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold mb-6 text-[#8a3a3a] border-b border-[#8a3a3a]/30 pb-4 inline-block">01. 陰影降臨：起源與傳播脈絡</h3>
+                    <p class="text-lg mb-4 text-gray-300">
+                        1346年，金帳汗國的軍隊圍攻黑海港口城市卡法（Caffa）。當軍隊中爆發神祕瘟疫時，他們將感染者的屍體用投石機拋入城內——這被認為是人類史上最早的生物戰之一。
+                    </p>
+                    <p class="text-gray-400 mb-4">
+                        隔年，幾艘驚恐的熱那亞貿易船逃離卡法，停靠在西西里島的墨西拿港。船上帶來的除了東方的香料，還有無形的死神——<span class="text-[#5e6b52] font-bold">鼠疫桿菌（Yersinia pestis）</span>以及牠們的宿主：黑鼠與印度鼠蚤。
+                    </p>
+                    <p class="text-gray-400">
+                        瘟疫透過密集的貿易路線，如野火般席捲整個歐洲。當時的社會對微生物一無所知，在短短數年間，歐洲失去了近三分之一到一半的人口，整個大陸籠罩在死亡的霧霾中。
+                    </p>
+                </div>
+                <!-- 全新設計的主題一圖示：血月與幽靈船 -->
+                <div class="relative h-64 md:h-full min-h-[300px] border border-gray-800 rounded-lg overflow-hidden flex items-center justify-center bg-[#0d0d0f] shadow-[0_0_30px_rgba(138,58,58,0.1)] group">
+                    <svg viewBox="0 0 200 200" class="w-48 h-48 opacity-80 transition-transform duration-700 group-hover:scale-110">
+                        <!-- 血月 -->
+                        <circle cx="100" cy="100" r="70" fill="url(#bloodGradient)" opacity="0.8">
+                            <animate attributeName="opacity" values="0.6;0.9;0.6" dur="5s" repeatCount="indefinite" />
+                        </circle>
+                        <!-- 海浪與迷霧 -->
+                        <path d="M 10 160 Q 50 140 100 160 T 190 160 L 190 200 L 10 200 Z" fill="#111" />
+                        <!-- 幽靈船剪影 -->
+                        <path d="M 60 160 L 40 120 L 90 120 L 90 40 L 150 110 L 110 110 L 120 160 Z" fill="#1a1a1c" stroke="#5e6b52" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M 40 120 Q 90 180 150 130 Z" fill="#1a1a1c" stroke="#5e6b52" stroke-width="2"/>
+                        <!-- 漸層定義 -->
+                        <defs>
+                            <radialGradient id="bloodGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                                <stop offset="0%" stop-color="#8a3a3a" stop-opacity="1" />
+                                <stop offset="100%" stop-color="#0a0a0c" stop-opacity="0" />
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 max-w-5xl mx-auto bg-gradient-to-r from-transparent via-[#1a1a1c] to-transparent reveal-section opacity-0">
+            <div class="grid md:grid-cols-2 gap-16 items-center flex-row-reverse">
+                <!-- 全新設計的主題二圖示：破碎沙漏與死亡之舞 -->
+                <div class="order-2 md:order-1 relative h-64 md:h-full min-h-[300px] border border-gray-800 rounded-lg overflow-hidden flex items-center justify-center bg-[#0d0d0f] shadow-[0_0_30px_rgba(94,107,82,0.1)] group">
+                    <svg viewBox="0 0 200 200" class="w-48 h-48 opacity-80 transition-transform duration-700 group-hover:scale-110">
+                        <!-- 沙漏外框 -->
+                        <path d="M 60 30 L 140 30 L 140 50 Q 140 90 100 100 Q 60 90 60 50 Z" fill="none" stroke="#d4d4ce" stroke-width="3"/>
+                        <path d="M 60 170 L 140 170 L 140 150 Q 140 110 100 100 Q 60 110 60 150 Z" fill="none" stroke="#d4d4ce" stroke-width="3"/>
+                        <!-- 流沙 (鮮血/生命力) -->
+                        <path d="M 80 50 Q 100 80 120 50 Z" fill="#8a3a3a" opacity="0.7"/>
+                        <rect x="98" y="50" width="4" height="100" fill="#8a3a3a" opacity="0.6">
+                            <animate attributeName="height" values="100;120;100" dur="2s" repeatCount="indefinite" />
+                        </rect>
+                        <path d="M 70 170 Q 100 130 130 170 Z" fill="#8a3a3a" opacity="0.9"/>
+                        <!-- 死亡骷髏裂痕 -->
+                        <path d="M 140 40 L 160 20 M 60 160 L 40 180" stroke="#5e6b52" stroke-width="2" stroke-dasharray="4 4"/>
+                    </svg>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h3 class="text-3xl font-bold mb-6 text-[#5e6b52] border-b border-[#5e6b52]/30 pb-4 inline-block">02. 社會崩解：恐懼與死亡之舞</h3>
+                    <p class="text-lg mb-4 text-gray-300">
+                        面對無法解釋的高死亡率，中世紀社會陷入了極度的恐懼與瘋狂。神職人員的死亡讓信仰動搖，傳統的喪葬儀式被迫取消，取而代之的是堆滿屍體的亂葬崗。
+                    </p>
+                    <p class="text-gray-400 mb-4">
+                        藝術史上出現了著名的<strong class="text-gray-200">「死亡之舞（Danse Macabre）」</strong>題材，描繪骷髏牽著國王、主教與農民一同起舞，象徵在死亡面前人人平等。
+                    </p>
+                    <p class="text-gray-400">
+                        同時，社會的恐懼也轉化為對異己的迫害。猶太人、乞丐與痲瘋病人被誣指為在水井中下毒的罪魁禍首，遭到殘酷的屠殺；而「鞭笞者（Flagellants）」則在街頭遊行，以皮鞭抽打自己，企圖藉由肉體受苦來平息上帝的憤怒。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 max-w-5xl mx-auto reveal-section opacity-0">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h3 class="text-3xl font-bold mb-6 text-gray-200 border-b border-gray-600 pb-4 inline-block">03. 醫學迷思：從瘴氣說到早期檢疫</h3>
+                    <p class="text-lg mb-4 text-gray-300">
+                        當時的醫學界主流為「瘴氣說（Miasma Theory）」，認為疾病是由腐敗物質散發的毒氣或星象錯位所引起。這導致了許多無效甚至有害的療法，如放血、焚燒香草，甚至將蟾蜍放在腫塊上。
+                    </p>
+                    <p class="text-gray-400 mb-4">
+                        然而，人類在絕望中也摸索出了防禦機制。<strong class="text-[#5e6b52]">威尼斯與拉古薩共和國</strong>首創了隔離制度：規定來自疫區的船隻必須在港外停泊40天，義大利語稱之為「Quarantena」，這正是現代英文「檢疫（Quarantine）」一詞的由來。
+                    </p>
+                    <p class="text-gray-400">
+                        雖然當時不懂細菌學，但人們開始意識到接觸傳染的風險。疫醫（Plague Doctor）穿著厚重的皮袍、戴著填滿香料的鳥嘴面具穿梭於死城，雖然無法真正抵禦跳蚤，卻成為了瘟疫史上最具代表性的防護象徵。
+                    </p>
+                </div>
+                <!-- 全新設計的主題三圖示：疫醫面具與檢疫十字 -->
+                <div class="relative h-64 md:h-full min-h-[300px] border border-gray-800 rounded-lg overflow-hidden flex items-center justify-center bg-[#0d0d0f] shadow-[0_0_30px_rgba(255,255,255,0.05)] group">
+                    <svg viewBox="0 0 200 200" class="w-48 h-48 opacity-80 transition-transform duration-700 group-hover:scale-110">
+                        <!-- 檢疫標誌/十字 -->
+                        <circle cx="100" cy="100" r="80" fill="none" stroke="#5e6b52" stroke-width="4" stroke-dasharray="10 10">
+                            <animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="30s" repeatCount="indefinite"/>
+                        </circle>
+                        <path d="M 100 40 L 100 160 M 40 100 L 160 100" stroke="#5e6b52" stroke-width="2" opacity="0.3"/>
+                        <!-- 疫醫鳥嘴側影 -->
+                        <path d="M 140 80 Q 130 50 90 60 Q 60 70 30 110 Q 70 110 90 130 Q 120 160 150 140 Q 160 110 140 80 Z" fill="#1a1a1c" stroke="#d4d4ce" stroke-width="2"/>
+                        <!-- 眼睛 (玻璃鏡片) -->
+                        <circle cx="110" cy="85" r="12" fill="#8a3a3a" opacity="0.8">
+                            <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" repeatCount="indefinite" />
+                        </circle>
+                        <!-- 香料散發的氣息 -->
+                        <path d="M 40 115 Q 20 130 40 150" fill="none" stroke="#5e6b52" stroke-width="2" stroke-dasharray="2 4"/>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 max-w-6xl mx-auto reveal-section opacity-0">
+            <div class="text-center mb-16">
+                <h3 class="text-3xl font-bold text-gray-200 mb-4">歷史遺物與典籍</h3>
+                <p class="text-gray-500">（請將游標移至物件上方，啟動神秘的歷史檔案）</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 互動卡片 1 -->
+                <div class="artifact-card p-8 rounded-xl cursor-pointer relative group">
+                    <div class="flex flex-col items-center mb-4 z-10 relative">
+                        <div class="w-16 h-16 rounded-full bg-[#1a1a1c] border border-[#5e6b52] flex items-center justify-center mb-4 group-hover:bg-[#5e6b52] transition-colors duration-500 shadow-[0_0_15px_rgba(94,107,82,0.5)] group-hover:shadow-[0_0_25px_rgba(94,107,82,0.8)]">
+                            <span class="text-3xl">🪶</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-200 tracking-wider">疫醫面具</h4>
+                    </div>
+                    <div class="artifact-details text-gray-400 text-sm border-t border-gray-700 pt-4 mt-2">
+                        <p>17世紀發明的鳥嘴面具。當時人們認為疫病由惡臭的「瘴氣」傳播，因此在鳥嘴中塞滿香料、草藥與玫瑰花瓣，試圖過濾致命的空氣。這身裝扮成為了死亡與恐懼的標誌。</p>
+                    </div>
+                </div>
+
+                <!-- 互動卡片 2 -->
+                <div class="artifact-card p-8 rounded-xl cursor-pointer relative group">
+                    <div class="flex flex-col items-center mb-4 z-10 relative">
+                        <div class="w-16 h-16 rounded-full bg-[#1a1a1c] border border-[#5e6b52] flex items-center justify-center mb-4 group-hover:bg-[#5e6b52] transition-colors duration-500 shadow-[0_0_15px_rgba(94,107,82,0.5)] group-hover:shadow-[0_0_25px_rgba(94,107,82,0.8)]">
+                            <span class="text-3xl">📜</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-200 tracking-wider">中世紀死亡通報</h4>
+                    </div>
+                    <div class="artifact-details text-gray-400 text-sm border-t border-gray-700 pt-4 mt-2">
+                        <p>教會與市鎮記錄著每日龐大的死亡人數。由於死者過多，傳統的喪葬儀式被迫取消，取而代之的是亂葬崗。這些文獻記錄了當時社會系統崩潰的最真實樣貌。</p>
+                    </div>
+                </div>
+
+                <!-- 互動卡片 3 -->
+                <div class="artifact-card p-8 rounded-xl cursor-pointer relative group">
+                    <div class="flex flex-col items-center mb-4 z-10 relative">
+                        <div class="w-16 h-16 rounded-full bg-[#1a1a1c] border border-[#5e6b52] flex items-center justify-center mb-4 group-hover:bg-[#5e6b52] transition-colors duration-500 shadow-[0_0_15px_rgba(94,107,82,0.5)] group-hover:shadow-[0_0_25px_rgba(94,107,82,0.8)]">
+                            <span class="text-3xl">🐀</span>
+                        </div>
+                        <h4 class="text-xl font-bold text-gray-200 tracking-wider">黑鼠與跳蚤</h4>
+                    </div>
+                    <div class="artifact-details text-gray-400 text-sm border-t border-gray-700 pt-4 mt-2">
+                        <p>真正的罪魁禍首。印度鼠蚤寄生在黑鼠身上，當老鼠死於鼠疫，飢餓的跳蚤便會轉向吸食人血，將鼠疫桿菌注入人體，開啟了跨越歐亞大陸的死亡連鎖。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 max-w-5xl mx-auto bg-gradient-to-l from-transparent via-[#1a1a1c] to-transparent reveal-section opacity-0">
+            <div class="grid md:grid-cols-2 gap-16 items-center flex-row-reverse">
+                <div class="order-2 md:order-1 relative h-64 md:h-full min-h-[300px] border border-gray-800 rounded-lg overflow-hidden flex items-center justify-center bg-[#0d0d0f] shadow-[0_0_30px_rgba(94,107,82,0.1)] group">
+                    <!-- 全新設計的主題四圖示：DNA與枯木逢春 -->
+                    <svg viewBox="0 0 200 200" class="w-48 h-48 opacity-80 transition-transform duration-700 group-hover:scale-110">
+                        <!-- 雙股螺旋 (基因演化) -->
+                        <path d="M 60 40 Q 100 100 60 160 M 140 40 Q 100 100 140 160" fill="none" stroke="#5e6b52" stroke-width="3" opacity="0.6"/>
+                        <line x1="75" y1="65" x2="125" y2="65" stroke="#d4d4ce" stroke-width="2" opacity="0.4"/>
+                        <line x1="85" y1="100" x2="115" y2="100" stroke="#d4d4ce" stroke-width="2" opacity="0.4"/>
+                        <line x1="75" y1="135" x2="125" y2="135" stroke="#d4d4ce" stroke-width="2" opacity="0.4"/>
+                        <!-- 枯樹幹與新芽 -->
+                        <path d="M 100 180 L 100 80 L 80 50 M 100 80 L 120 60" fill="none" stroke="#1a1a1c" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M 100 180 L 100 80 L 80 50 M 100 80 L 120 60" fill="none" stroke="#8a3a3a" stroke-width="4" stroke-linecap="round"/>
+                        <!-- 發光的抗體/微粒 -->
+                        <circle cx="80" cy="50" r="5" fill="#5e6b52">
+                            <animate attributeName="r" values="3;6;3" dur="2s" repeatCount="indefinite" />
+                        </circle>
+                        <circle cx="120" cy="60" r="4" fill="#5e6b52">
+                            <animate attributeName="r" values="2;5;2" dur="2.5s" repeatCount="indefinite" />
+                        </circle>
+                    </svg>
+                </div>
+                <div class="order-1 md:order-2">
+                    <h3 class="text-3xl font-bold mb-6 text-[#5e6b52] border-b border-[#5e6b52]/30 pb-4 inline-block">04. 殘酷演化：瘟疫的消散與共存</h3>
+                    <p class="text-lg mb-4 text-gray-300">
+                        黑死病並未被單一的「解藥」消滅，而是透過自然法則與人類演化逐漸達到恐怖的平衡。
+                    </p>
+                    <p class="text-gray-400 mb-4">
+                        極高的致死率淘汰了大量易感人群。部分現代遺傳學研究指出，倖存下來的歐洲人身上可能留下了特定的基因突變（如CCR5-Δ32），這不僅讓他們對鼠疫產生抵抗力，甚至在數百年後為對抗HIV病毒提供了意想不到的保護。
+                    </p>
+                    <p class="text-gray-400">
+                        同時，人口的銳減意外導致了勞動力短缺。農奴因此獲得了談判工資的籌碼，封建制度開始瓦解，生活水平與飲食質量的提升，最終為隨後的「文藝復興」埋下了伏筆。這是一場以毀滅為代價的殘酷演化。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-6 max-w-5xl mx-auto reveal-section opacity-0">
+            <div class="p-10 border border-[#8a3a3a]/40 bg-[#111]/90 rounded-2xl relative overflow-hidden shadow-[0_0_40px_rgba(138,58,58,0.15)]">
+                <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-[#8a3a3a] to-[#5e6b52]"></div>
+                <!-- 裝飾用背景圖案 -->
+                <svg viewBox="0 0 100 100" class="absolute top-0 right-0 w-64 h-64 opacity-5 transform translate-x-1/4 -translate-y-1/4">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="#fff" stroke-width="2"/>
+                    <path d="M 50 5 L 50 95 M 5 50 L 95 50" stroke="#fff" stroke-width="2"/>
+                </svg>
+
+                <h3 class="text-3xl font-bold mb-6 text-gray-100 flex items-center">
+                    <span class="mr-4">05. 現代警鐘：實驗室危機與新興威脅</span>
+                    <span class="relative flex h-4 w-4">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#8a3a3a] opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-4 w-4 bg-[#8a3a3a]"></span>
+                    </span>
+                </h3>
+                <p class="text-lg mb-8 text-gray-300">
+                    數百年後的今天，黑死病並未從地球上絕跡。近期疑似俄國實驗室爆出「鼠疫肺炎」外洩的消息，再次挑動了人類脆弱的神經，讓我們驚覺歷史的幽靈從未走遠。
+                </p>
+                
+                <div class="grid md:grid-cols-2 gap-10 mt-8">
+                    <div class="bg-[#1a1a1c] p-6 rounded-lg border border-gray-800">
+                        <div class="flex items-center mb-4">
+                            <span class="text-[#8a3a3a] text-2xl mr-3">☣️</span>
+                            <h4 class="text-xl font-bold text-[#8a3a3a]">古老病毒的現代進化</h4>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            鼠疫分為腺鼠疫、敗血性鼠疫與肺鼠疫。其中「肺鼠疫」可透過飛沫在人與人之間直接傳染，不需經過跳蚤。若在現代密閉環境、全球航班或高密度都市中爆發，其傳播速度與近乎100%的致死率依然是公衛夢魘。而具備抗生素抗藥性的突變株，更是潛在的生化危機。
+                        </p>
+                    </div>
+                    <div class="bg-[#1a1a1c] p-6 rounded-lg border border-gray-800">
+                        <div class="flex items-center mb-4">
+                            <span class="text-[#5e6b52] text-2xl mr-3">🔬</span>
+                            <h4 class="text-xl font-bold text-[#5e6b52]">從商船到實驗室的省思</h4>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">
+                            無論是14世紀攜帶病鼠的熱那亞貿易船，還是21世紀研究致命病原體的高階實驗室（BSL-4），人類對未知的掌控欲與疏忽往往是災難的開端。這段歷史與近期事件共同提醒我們：科技雖帶來了抗生素與基因測序，但在自然界的演化力量面前，人類永遠必須保持敬畏與最高警覺。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-10 text-center border-t border-gray-800 mt-20 relative z-10 bg-black/50">
+            <p class="text-gray-600 text-sm">
+                此為歷史文化主題概念網站 | 探討中世紀黑死病脈絡與現代啟示<br>
+                &copy; 2026 History & Culture Web Design Project
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. 首頁進場動畫 (Hero Section)
+            anime.timeline({
+                easing: 'easeOutExpo',
+            })
+            .add({
+                targets: '.hero-elements',
+                translateY: [50, 0],
+                opacity: [0, 1],
+                duration: 2000,
+                delay: 500
+            })
+            .add({
+                targets: '.scroll-indicator',
+                translateY: [-20, 0],
+                opacity: [0, 1],
+                duration: 1000,
+            }, '-=1000');
+
+            // 讓向下箭頭持續浮動
+            anime({
+                targets: '.scroll-indicator',
+                translateY: [0, 10, 0],
+                loop: true,
+                duration: 2000,
+                easing: 'easeInOutSine'
+            });
+
+            // 2. 捲動觸發區塊浮現動畫 (Scroll Reveal)
+            const revealSections = document.querySelectorAll('.reveal-section');
+            
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        anime({
+                            targets: entry.target,
+                            translateY: [50, 0],
+                            opacity: [0, 1],
+                            duration: 1500,
+                            easing: 'easeOutQuart'
+                        });
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15 // 當區塊進入視窗 15% 時觸發
+            });
+
+            revealSections.forEach(section => {
+                revealObserver.observe(section);
+            });
+
+            // 3. 互動卡片：游標移入展開典籍故事 (Hover Interaction)
+            const artifactCards = document.querySelectorAll('.artifact-card');
+            
+            artifactCards.forEach(card => {
+                const details = card.querySelector('.artifact-details');
+                const icon = card.querySelector('.w-16'); // 圖示外框
+                
+                card.addEventListener('mouseenter', () => {
+                    // 展開文字
+                    anime({
+                        targets: details,
+                        height: [0, details.scrollHeight + 'px'],
+                        opacity: [0, 1],
+                        duration: 600,
+                        easing: 'easeOutElastic(1, .8)'
+                    });
+                    
+                    // 圖示微旋轉與縮放，帶點魔法感
+                    anime({
+                        targets: icon,
+                        scale: 1.1,
+                        rotate: '10deg',
+                        duration: 400,
+                        easing: 'easeOutQuad'
+                    });
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    // 收合文字
+                    anime({
+                        targets: details,
+                        height: [details.scrollHeight + 'px', 0],
+                        opacity: [1, 0],
+                        duration: 400,
+                        easing: 'easeInQuad'
+                    });
+                    
+                    // 圖示恢復
+                    anime({
+                        targets: icon,
+                        scale: 1,
+                        rotate: '0deg',
+                        duration: 400,
+                        easing: 'easeInQuad'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
